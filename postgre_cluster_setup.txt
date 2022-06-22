@@ -4,7 +4,7 @@ Postgre cluster means collection of databases which shared same configurations l
 
 it's sometimes made confusion when compare with other database services.
 
-How can setup multiple cluster in the same machine with same version in windows
+How can set up multiple clusters in the same machine with the same version in windows?
 ------------------------------
 1. create a folder where you like to setup new cluster e.g E:\Data\PgInstance2
 2. grant full access for windows user by which you login in windows OS
