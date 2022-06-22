@@ -1,0 +1,22 @@
+Postgresql cluster
+------------------------
+Postgre cluster means collection of databases which shared same configurations like buffer size, number of connections allowed, connection pool size, and so on.
+
+it's sometimes made confusion when compare with other database services.
+
+How can setup multiple cluster in the same machine with same version in windows
+------------------------------
+1. create a folder where you like to setup new cluster e.g E:\Data\PgInstance2
+2. grant full access for windows user by which you login in windows OS
+(if windows user is opu and cluster setup location is E:\Data\PgInstance2 then grant full access to this folder for user opu)
+3. Open command prompt(cmd) then change location where you installed main setup file during installation
+e.g windows default location C:\Program Files\PostgreSQL\14\bin (cd C:\Program Files\PostgreSQL\14\bin)
+4. start initilization new cluster e.g initdb -D E:\Data\PgInstance2 -W -A md5 (do not forget password of supersuer when set during initilization, user will be logon windows user like opu or Administrator(case sensitive), this windows user will be superuser for postgre)
+5. open postgresql.conf in notepad++ from E:\Data\PgInstance2 then change listen_addresses = '*'[changable] and port = 5433[changable], generally it have commented just remove the #
+6. Open pg_hba.conf in notepad++ from E:\Data\PgInstance2 then add 
+host    all             all             0.0.0.0/0            	md5
+under IPv4 local connections: -- this means allow connection from all host/user but you can customize 
+7.  start the newly setup cluster e.g pg_ctl start -D E:\Data\PgInstance2
+if you get any error fix it, generally port related issue happen sometimes then chage port number
+8. Register it in windows service e.g pg_ctl register -N postgres2 -D E:\Data\PgInstance2
+9. Now you can change service account for postgres2 service, but must have full access to new setup location e.g E:\Data\PgInstance2 even that user is the memeber of admin group.
