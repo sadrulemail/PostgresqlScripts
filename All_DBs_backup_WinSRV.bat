@@ -15,7 +15,7 @@ set /a hh=%hh%+100
 set hh=%hh:~1%
 
 rem dump all user accounts and roles
-"%PGBINDIR%\pg_dumpall" --globals-only --file=postgres_globals.sql 
+"%PGBINDIR%\pg_dumpall" --globals-only --file=%PG_Backup_Path%\postgres_globals.sql 
 
 for /f %%d in (dblist.txt) do (
   echo Backup running: %%d
