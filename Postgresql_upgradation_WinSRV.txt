@@ -1,6 +1,6 @@
 Postgresql MINOR version Upgradation (PostgreSQL 14.3 to PostgreSQL 14.4)
 --------------------------------------------------------------------------
-1. download PostgreSQL 14.4 setup file https://get.enterprisedb.com/postgresql/postgresql-14.4-1-windows-x64.exe
+1. Download PostgreSQL 14.4 setup file https://get.enterprisedb.com/postgresql/postgresql-14.4-1-windows-x64.exe
 2. Take a full backup of all DBs including roles
 3. Stop the running serive of PostgreSQL
 4. Install PostgreSQL 14.4
@@ -9,3 +9,20 @@ Postgresql MINOR version Upgradation (PostgreSQL 14.3 to PostgreSQL 14.4)
 
 Postgresql MAJOR version Upgradation (PostgreSQL 13.7/12.11/11.16 to PostgreSQL 14.4)
 --------------------------------------------------------------------------------------
+1. Check the installed version and port by run this command (select version(), inet_server_port() )
+2. Take a backup of PostgreSQL.conf and pg_hba.conf from(C:\Program Files\PostgreSQL\12\data)
+3. Take all DBs backup including roles(https://github.com/sadrulemail/PostgresqlScripts/blob/main/All_DBs_backup_WinSRV.bat)
+4. Download PostgreSQL 14.4 setup file https://get.enterprisedb.com/postgresql/postgresql-14.4-1-windows-x64.exe
+5. Install PostgreSQL 14.4
+6.  Check the current installed version(PostgreSQL 14.4) and port by run this command (select version(), inet_server_port() )
+7. Create a TEMP directory & Grant full access to Everyone (C:\TEMP)
+8. Run below from CMD
+cd C:\TEMP
+9. Run below command from CMD
+SET PGPASSWORD=123
+"c:\program files\postgresql\13\bin\pg_upgrade.exe" -d "c:\program files\postgresql\13\data" -D"c:\program files\postgresql\14\data" -b "c:\program files\postgresql\13\bin" -B "c:\program files\postgresql\14\bin" -U Postgres
+10. Stop both services for 13 & 14
+11. Change port number in PostgreSQL.conf for both version, just replace old version port number into new version PostgreSQL.conf & vice versa
+12. Start both services for 13 & 14
+13. Now eveyone should be able to connect with new version in the same cluster
+
