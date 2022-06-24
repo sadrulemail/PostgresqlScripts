@@ -1,0 +1,12 @@
+Postgresql MINOR version Upgradation (PostgreSQL 14.3 to PostgreSQL 14.4)
+------------------
+1. download PostgreSQL 14.4 setup file https://get.enterprisedb.com/postgresql/postgresql-14.4-1-windows-x64.exe
+2. Take a full backup of all DBs including roles
+3. Stop the running serive of PostgreSQL
+4. Install PostgreSQL 14.4
+5. Start the service 
+6. Check the version by run this command (select version())
+
+
+
+Postgresql MAJOR version Upgradation
