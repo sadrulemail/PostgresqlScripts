@@ -25,5 +25,5 @@ SET PGPASSWORD=123
 11. Change port number in PostgreSQL.conf for both version, just replace old version port number into new version PostgreSQL.conf & vice versa
 12. Start both services for 13 & 14
 13. Now eveyone should be able to connect with new version in the same cluster
-14. You should delete old cluster & run VACUUM for all DBs
+14. You should delete old cluster(Check C:\TEMP, run it to delete old cluster) & run VACUUM for all DBs
 
