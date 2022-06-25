@@ -1,3 +1,10 @@
+REM **********************************************
+REM Author:Sadrul
+REM Linkin Profile:https://www.linkedin.com/in/sadrulalom/
+
+REM **********************************************
+
+
 @echo off
 set PGBINDIR=C:\Program Files\PostgreSQL\14\bin
 

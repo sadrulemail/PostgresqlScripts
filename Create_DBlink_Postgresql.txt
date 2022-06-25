@@ -1,0 +1,30 @@
+**********************************************
+Author:Sadrul
+Linkin Profile:https://www.linkedin.com/in/sadrulalom/
+
+**********************************************
+
+In PostgreSQL, a 'DB Link' allows a database user to view a table on a separate PostgreSQL cluster. It provides PostgreSQL capabilities equivalent to 'DB Link' in Oracle, 'Linked Server' in SQL Server, and 'Federated tables' in MySQL.
+
+Create DB link in PostgreSQL
+------------------------------------------------------
+1. Allow host base authentication, Check pg_hba.conf file of data source cluster & add authentication info under IPv4 local connections:
+e.g host    all             all             192.168.37.203            	md5
+2. Create an extension in the target database cluster if not exist.
+Command: CREATE EXTENSION dblink;
+3. Create Foreign Server Pointing to Source Database
+Command: CREATE SERVER link_source_db FOREIGN DATA WRAPPER dblink_fdw  OPTIONS ( host '192.168.37.203' ,dbname 'DBLink_SourceDB' , port '5432');
+4. Create user mapping.
+Command: CREATE USER MAPPING FOR postgres  SERVER link_source_db OPTIONS ( user 'opu' ,password '123');
+5. Test the dblink connection, if it return OK then connection is successful.
+Command: SELECT dblink_connect('open_new_connection', 'link_source_db');
+6. Do some test of database level
+    a. create table and insert data on DBLink_SourceDB
+        CREATE TABLE emp (empid int,empname text);
+        INSERT INTO emp (empid,empname) VALUES (1,'opu');
+        INSERT INTO emp (empid,empname) VALUES (2,'sadrul');
+        SELECT * FROM emp;
+    b. run below command to check the emp table data from 
+        SELECT * FROM dblink('link_source_db','SELECT * FROM emp') AS x(id int,name text);
+
+

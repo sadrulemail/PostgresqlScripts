@@ -1,3 +1,9 @@
+**********************************************
+Author:Sadrul
+Linkin Profile:https://www.linkedin.com/in/sadrulalom/
+
+**********************************************
+
 Postgresql MINOR version Upgradation (PostgreSQL 14.3 to PostgreSQL 14.4)
 --------------------------------------------------------------------------
 1. Download PostgreSQL 14.4 setup file https://get.enterprisedb.com/postgresql/postgresql-14.4-1-windows-x64.exe

@@ -1,3 +1,9 @@
+REM **********************************************
+REM Author:Sadrul
+REM Linkin Profile:https://www.linkedin.com/in/sadrulalom/
+
+REM **********************************************
+
 @echo off
 SET PG_BIN="C:\Program Files\PostgreSQL\14\bin\pg_dump.exe"
 SET PG_HOST=192.168.37.202
