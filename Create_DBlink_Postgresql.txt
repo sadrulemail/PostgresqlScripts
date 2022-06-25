@@ -12,13 +12,21 @@ Create DB link in PostgreSQL
 e.g host    all             all             192.168.37.203            	md5
 2. Create an extension in the target database cluster if not exist.
 Command: CREATE EXTENSION dblink;
-3. Create Foreign Server Pointing to Source Database
+3. Check info for extension
+Command: select * from pg_extension;
+4. Create Foreign Server Pointing to Source Database
 Command: CREATE SERVER link_source_db FOREIGN DATA WRAPPER dblink_fdw  OPTIONS ( host '192.168.37.203' ,dbname 'DBLink_SourceDB' , port '5432');
-4. Create user mapping.
-Command: CREATE USER MAPPING FOR postgres  SERVER link_source_db OPTIONS ( user 'opu' ,password '123');
-5. Test the dblink connection, if it return OK then connection is successful.
+5. Check info for Foreign Server
+Command: select * from pg_foreign_server;
+6. Create user mapping.
+Command: CREATE USER MAPPING FOR abc_user  SERVER link_source_db OPTIONS ( user 'opu' ,password '123');
+7. Check info for user mapping
+command:select * from pg_user_mappings;
+8. if abc_user is not the super user then grant usage permission on Foreign Server
+Command: grant usage on foreign server link_source_db to abc_user;
+9. Test the dblink connection, if it return OK then connection is successful.
 Command: SELECT dblink_connect('open_new_connection', 'link_source_db');
-6. Do some test of database level
+10. Do some test of database level
     a. create table and insert data on DBLink_SourceDB
         CREATE TABLE emp (empid int,empname text);
         INSERT INTO emp (empid,empname) VALUES (1,'opu');
