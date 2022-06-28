@@ -1,0 +1,39 @@
+**********************************************
+Author:Sadrul
+Linkin Profile:https://www.linkedin.com/in/sadrulalom/
+
+**********************************************
+
+Install Postgresql latest version in Ubuntu/Fedora SRV
+-------------------------------------------------------
+1. update system packages to latest stable version
+Command: sudo apt update && sudo apt upgrade
+2. Install required package
+Command: sudo apt -y install gnupg2 wget vim
+3. Check available version in current repository
+Command: sudo apt-cache search postgresql | grep postgresql
+4. Add all major version latest release to repository 
+Command: sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+5. Import GPG signing key for the repository
+Command: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+6. Now update apt package list
+Command: sudo apt -y update
+7. Installation command of postgresql-14/13
+Command: sudo apt -y install postgresql-14 OR sudo apt install postgresql-13 postgresql-client-13
+8. Check the postgresql service status
+Command: systemctl status postgresql OR systemctl status postgresql@13-main.service
+9. Verify the installed PostgreSQL version
+Command: sudo -u postgres psql -c "SELECT version();"
+10. Allow firewall
+Command: sudo ufw allow 5432/tcp
+11. Restart postgresql service command
+Command: sudo systemctl restart postgresql 
+12. Enable service to auto start when reboot
+Command: sudo systemctl enable postgresql
+14. update postgresql.conf & pg_hba.conf as per requirement for remote connection. To check data directory run cmd from psql. WinSCP maybe a good tool to browse linux directory from GUI.
+Command: show data_directory
+15. Set password of postgresql from psql if required.
+Command: ALTER USER postgres WITH PASSWORD '123';
+
+
+
