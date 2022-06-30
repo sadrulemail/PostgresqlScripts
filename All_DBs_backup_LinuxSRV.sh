@@ -1,5 +1,11 @@
 #!/bin/bash
+echo <<EOF
+**********************************************
+Author:Sadrul
+Linkin Profile:https://www.linkedin.com/in/sadrulalom/
 
+**********************************************
+EOF
 
 # Location to place backups.
 backup_dir="/var/postgres_db_backup"
