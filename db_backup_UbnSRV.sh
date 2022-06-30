@@ -16,24 +16,24 @@ usr_name=opu
 PGPASSWORD=123
 
 # Backup storage directory 
-backupfolder=/var/postgres_db_backup
+backup_dir=/var/postgres_db_backup
 
 # Notification email address 
 recipient_email=salom@relisource.com
 
 # Number of days to store the backup 
-keep_day=30
+keep_days=30
 
-#sqlfile=$backupfolder/$db_name-$(date +%d-%m-%Y_%H-%M-%S).sql
-#zipfile=$backupfolder/$db_name-$(date +%d-%m-%Y_%H-%M-%S).zip
+#sqlfile=$backup_dir/$db_name-$(date +%d-%m-%Y_%H-%M-%S).sql
+#zipfile=$backup_dir/$db_name-$(date +%d-%m-%Y_%H-%M-%S).zip
 
 #normal sql file format
-#sqlfile=$backupfolder/$db_name-$(date +%Y%m%d_%H%M%S).sql
-#zipfile=$backupfolder/$db_name-$(date +%Y%m%d_%H%M%S).zip
+#sqlfile=$backup_dir/$db_name-$(date +%Y%m%d_%H%M%S).sql
+#zipfile=$backup_dir/$db_name-$(date +%Y%m%d_%H%M%S).zip
 
 #tar file format
-sqlfile=$backupfolder/$db_name-$(date +%Y%m%d_%H%M%S).tar
-zipfile=$backupfolder/$db_name-$(date +%Y%m%d_%H%M%S).tar.zip
+sqlfile=$backup_dir/$db_name-$(date +%Y%m%d_%H%M%S).tar
+zipfile=$backup_dir/$db_name-$(date +%Y%m%d_%H%M%S).tar.zip
 
 
 # Create a backup
@@ -51,7 +51,7 @@ fi
 
 
 #rm $sqlfile 
-#echo $zipfile | mailx -s 'Backup was successfully created' $recipient_email
+#echo $zipfile | mailx -s 'Backup Done successfully' $recipient_email
 
-# Delete 30 days old backups 
-find $backupfolder -mtime +$keep_day -delete
+# Delete old backups 
+find $backup_dir -mtime +$keep_days -delete
