@@ -24,7 +24,7 @@ Command: sudo apt -y install postgresql-14 OR sudo apt install postgresql-13 pos
 Command: systemctl status postgresql OR systemctl status postgresql@13-main.service
 9. Verify the installed PostgreSQL version
 Command: sudo -u postgres psql -c "SELECT version();"
-10. Allow firewall
+10. Allow firewall in ubn srv
 Command: sudo ufw allow 5432/tcp
 11. Restart postgresql service command
 Command: sudo systemctl restart postgresql 
@@ -34,6 +34,15 @@ Command: sudo systemctl enable postgresql
 Command: show data_directory
 15. Set password of postgresql from psql if required.
 Command: ALTER USER postgres WITH PASSWORD '123';
-
-
+16. Allow port from firewall in Fedora srv
+Command: sudo firewall-cmd --add-port=5434/tcp
+sudo firewall-cmd --runtime-to-permanent
+--Enable firewalld
+systemctl enable firewalld;
+--Stop firewalld
+systemctl stop firewalld;
+--Start firewalld
+systemctl start firewalld;
+--Status of firewalld
+systemctl status firewalld;
 
