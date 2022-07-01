@@ -10,6 +10,11 @@ CREATE TABLESPACE tsp_LearnWithSadrul
 OWNER opu
 LOCATION 'U:\data\tsp1';
 
+-create directory, grant permissions and change owner to postgres
+sudo mkdir /var/data
+sudo chmod 777 /var/data
+sudo chown postgres /var/data
+
 --Create new tablespace in Linux(ubuntu srv)
 CREATE TABLESPACE tsp_LearnWithSadrul
 OWNER opu
