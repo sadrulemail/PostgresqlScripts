@@ -1,0 +1,41 @@
+**********************************************
+Author:Sadrul
+Linkin Profile:https://www.linkedin.com/in/sadrulalom/
+
+**********************************************
+Tablespace is the location on disk drive which is the logical name of physical path.It is used for storing the database metadata and user data. Initailly Postgresql have two tablespace pg_global and pg_default. Shared system catalogs are using pg_global. Until create new tablespace & define as default tablespace, it's used for  user databases.
+
+--Create new tablespace in windows srv
+CREATE TABLESPACE tsp_LearnWithSadrul
+OWNER opu
+LOCATION 'U:\data\tsp1';
+
+--Create new tablespace in Linux(ubuntu srv)
+CREATE TABLESPACE tsp_LearnWithSadrul
+OWNER opu
+LOCATION '/var/data';
+
+-- set default tablespace
+SET default_tablespace = tsp_LearnWithSadrul;
+
+-- change tablespace of emp table
+ALTER TABLE emp SET TABLESPACE tsp_LearnWithSadrul;
+
+-- system catalog of tablespace
+SELECT * FROM pg_tablespace;
+
+-- create a table in new tablespace, when tablespace set as default_tablespace then no need to mention the tablespace name, it will automatically create in new tablespace.
+CREATE TABLE emp_new(
+id int, 
+ename varchar(100),
+designation varchar(100))
+TABLESPACE tsp_LearnWithSadrul;
+
+-- Move all existing tables into new tablespace
+-- it will generate scripts for all tables, copy the output of this query and execute from pgadmin new query window.
+SELECT 'ALTER TABLE '||schemaname||'.'||tablename||' SET TABLESPACE tsp_LearnWithSadrul;'
+FROM pg_tables WHERE schemaname NOT IN ('pg_catalog', 'information_schema');
+
+--Move tables and indexes to a different tablespace
+ALTER TABLE emp set TABLESPACE tsp_LearnWithSadrul;
+ALTER INDEX idx_emp set TABLESPACE tsp_LearnWithSadrul_Index;
