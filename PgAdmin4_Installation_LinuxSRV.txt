@@ -1,7 +1,8 @@
 **********************************************
 Author:Sadrul
-Linkin Profile:https://www.linkedin.com/in/sadrulalom/
+Linkedin Profile:https://www.linkedin.com/in/sadrulalom/
 **********************************************
+
 Installation Steps
 -------------------
 1. add the repository to Ubuntu system

@@ -2,7 +2,7 @@
 echo <<EOF
 **********************************************
 Author:Sadrul
-Linkin Profile:https://www.linkedin.com/in/sadrulalom/
+Linkedin Profile:https://www.linkedin.com/in/sadrulalom/
 
 **********************************************
 EOF

@@ -1,6 +1,6 @@
 REM **********************************************
 REM Author:Sadrul
-REM Linkin Profile:https://www.linkedin.com/in/sadrulalom/
+REM Linkedin Profile:https://www.linkedin.com/in/sadrulalom/
 
 REM **********************************************
 

@@ -1,8 +1,8 @@
 **********************************************
 Author:Sadrul
-Linkin Profile:https://www.linkedin.com/in/sadrulalom/
-
+Linkedin Profile:https://www.linkedin.com/in/sadrulalom/
 **********************************************
+
 Tablespace is the location on disk drive which is the logical name of physical path.It is used for storing the database metadata and user data. Initailly Postgresql have two tablespace pg_global and pg_default. Shared system catalogs are using pg_global. Until create new tablespace & define as default tablespace, pg_default is used for user databases.
 
 --Create new tablespace in windows srv
