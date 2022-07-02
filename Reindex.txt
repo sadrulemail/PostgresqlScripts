@@ -1,0 +1,26 @@
+**********************************************
+Author:Sadrul
+Linkin Profile:https://www.linkedin.com/in/sadrulalom/
+**********************************************
+sometimes index rebuild is required, postgresql by default maintain it by autovacuum. postgresql-12 support concurrent rebuild. PostgreSQL allows you to reindex without locking by using its REINDEX ... CONCURRENTLY syntax.
+
+-- rebuild an index
+REINDEX INDEX schema_name.index_name;
+-- rebuil all index of a table
+REINDEX TABLE schema_name.table_name;   
+-- rebuild all index of a schema
+REINDEX SCHEMA schema_name;
+-- rebuil all index of a db
+REINDEX DATABASE db_name;
+
+-- example of concurrent
+reindex schema CONCURRENTLY public;
+
+-- generate reindex script for all tables
+SELECT 'REINDEX TABLE CONCURRENTLY ' || quote_ident(relname) || ' /*' || pg_size_pretty(pg_total_relation_size(C.oid)) || '*/;'
+FROM pg_class C
+LEFT JOIN pg_namespace N ON (N.oid = C.relnamespace)
+WHERE nspname = 'public' -- schema name
+  AND C.relkind = 'r' -- r for table, obj type
+  AND nspname !~ '^pg_toast' -- overlook toast schema
+ORDER BY pg_total_relation_size(C.oid) ASC;

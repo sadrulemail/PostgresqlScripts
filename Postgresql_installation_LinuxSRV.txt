@@ -46,3 +46,12 @@ systemctl start firewalld;
 --Status of firewalld
 systemctl status firewalld;
 
+Upgrade Postgresql Minor version(14.2 to 14.4)
+-----------------------------------------------
+1. Check installed Postgresql packages
+Command: dpkg -l 'postgres*'
+2. update packages
+Command: sudo apt-get update
+3. install updated packages
+Command: sudo apt-get upgrade postgresql-14
+

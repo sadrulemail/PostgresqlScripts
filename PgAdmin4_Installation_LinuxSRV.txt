@@ -1,0 +1,36 @@
+**********************************************
+Author:Sadrul
+Linkin Profile:https://www.linkedin.com/in/sadrulalom/
+**********************************************
+Installation Steps
+-------------------
+1. add the repository to Ubuntu system
+Command:curl  -fsSL https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/pgadmin.gpg
+2.  add pgAdmin repository in Ubuntu system
+Command:sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list'
+3.  check the contents of the repository file
+Command:cat /etc/apt/sources.list.d/pgadmin4.list
+Output: deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/jammy pgadmin4 main
+4. update packages 
+Command:sudo apt update
+5. installation cmd, hit y when ask to complete the installation
+Command: sudo apt install pgadmin4
+6. Check Apache service status, it should be started after installation.
+Command:systemctl status apache2
+7. if not started then run below cmd
+Command: systemctl start apache2
+8. Initiate Apache web server configuration, type mail address and set pwd
+Command:sudo /usr/pgadmin4/bin/setup-web.sh
+9. allow http & https from UFW firewall
+Command: sudo ufw allow http
+sudo ufw allow https
+10. browse Pgadmin4 from browser,  http://installed_machine_IP/pgadmin4
+
+Upgrade pgadmin4(like 4.10 to 4.11, minor version)
+--------------------------------------------------
+1. Get updated packages list from internet
+Command: sudo apt-get update
+2. Check the updateable list
+Command: sudo apt list --upgradeable 
+3. Install available upgrades of all packages
+Command: sudo apt-get upgrade pgadmin4
