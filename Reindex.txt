@@ -3,7 +3,7 @@ Author:Sadrul
 Linkedin Profile:https://www.linkedin.com/in/sadrulalom/
 **********************************************
 
-sometimes index rebuild is required, postgresql by default maintain it by autovacuum. postgresql-12 support concurrent rebuild. PostgreSQL allows you to reindex without locking by using its REINDEX ... CONCURRENTLY syntax.
+sometimes index rebuild is required, postgresql by default maintain it by autovacuum. postgresql-12 & onwards support concurrent rebuild. PostgreSQL allows you to reindex without locking by using its REINDEX ... CONCURRENTLY syntax.
 
 -- rebuild an index
 REINDEX INDEX schema_name.index_name;

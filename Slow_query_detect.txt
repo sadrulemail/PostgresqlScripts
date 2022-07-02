@@ -1,0 +1,42 @@
+**********************************************
+Author:Sadrul
+Linkedin Profile:https://www.linkedin.com/in/sadrulalom/
+**********************************************
+
+Performance tunning is always a critial task & you have to analyize it carefully. There is no paramater like "speed=on" which will improve psogresql performance.
+
+There is most widely used 2 ways by which slow running queries can be detected.
+1. Log slow running query, just set the log_min_duration_statement value in postgresql.conf, the value in miliseconds e.g log_min_duration_statement=2000 for 2 minutes.run SELECT pg_reload_conf(), no need to restart postgresql cluster/server. it will log the queries which take more than 2 minutes. this is the cluster level configuration. for database level just run ALTER DATABASE db_name SET log_min_duration_statement = 4000;-- 4 minutes 
+
+2. Use of most powerful extension pg_stat_statements
+The aim behind pg stat statements is to aggregate runtime information in a system view by grouping identical queries that are only used with different parameters. It enables you to understand what is truly going on in your system.
+
+How can enable pg_stat_statements
+----------------------------------
+a. Modify postgresql.conf, add shared_preload_libraries = 'pg_stat_statements' and restart postgresql service
+b. create extension in your desired database
+Command: CREATE EXTENSION pg_stat_statements;
+c. find out queries which are taking more time;
+Command: SELECT substring(query, 1, 50) AS query,
+      calls,round(total_exec_time::numeric, 2) AS total_time,
+      round(mean_exec_time::numeric, 2) AS mean_time,
+      round((100 * total_exec_time / sum(total_exec_time) OVER ())::numeric, 2) AS percentage
+FROM pg_stat_statements
+ORDER BY total_exec_time DESC
+LIMIT 15;
+d. reset previous info
+Command: SELECT pg_stat_statements_reset();
+e. For I/O issues, cluster level modify postgresql.conf and set track_io_timing=on.
+For database level, ALTER DATABASE db_name SET track_io_timing = on;
+f. find out the I/O issues using below query
+Command:
+SELECT substring(query, 1, 50) AS query,
+      calls,round(total_exec_time::numeric, 2) AS total_time,
+      round(blk_read_time::numeric, 2) AS io_read_time,
+      round(blk_write_time::numeric, 2) AS io_write_time,
+      round((100 * total_exec_time / sum(total_exec_time) OVER ())::numeric, 2) AS percentage
+FROM pg_stat_statements
+ORDER BY blk_read_time + blk_write_time DESC
+LIMIT 15;
+
+Note: I like to use pg_stat_statements extension which comes with postgresql installation.
