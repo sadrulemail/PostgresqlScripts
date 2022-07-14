@@ -1,0 +1,47 @@
+**********************************************
+Author:Sadrul
+Linkedin Profile:https://www.linkedin.com/in/sadrulalom/
+**********************************************
+Streaming replication Setup for PostgreSQL-14
+-----------------------------------------------
+Streaming replication, a PostgreSQL standard feature, allows new information on the primary server to be transmitted to the standby server in real time, keeping the databases on the primary and standby servers in sync.
+Streaming Replication (SR) allows you to continually ship and apply WAL XLOG data to a set of standby servers in order to keep them up to date.
+
+1. Install postgresql-14 on both nodes, for installation please follow below instructions.
+URL:https://github.com/sadrulemail/PostgresqlScripts/blob/main/Postgresql_installation_LinuxSRV.txt
+2. Setup new cluster for installed postgresql-14, please follow below instructions
+URL:https://github.com/sadrulemail/PostgresqlScripts/blob/main/postgre_cluster_setup.txt
+3. Modify below parameters value in postgresql.conf file on Primary server.
+wal_level = replica
+max_wal_senders = 10
+wal_keep_size = '1GB'
+wal_compression = on
+4. Modify below parameters value in pg_hba.conf file on Primary server. Replace IP addresses by your node IP addresses/Network id.
+host    all          all       192.168.37.1/24         trust
+host    replication  repluser  192.168.37.143/30       trust
+5. start postgresql service
+Command: /usr/lib/postgresql/14/bin/pg_ctl -D /var/lib/postgresql/14/main start
+6. create a replication user on primary server.
+Command:createuser -U postgres --replication repluser
+7. create a replication slot for standby servers, you can create it from psql or pgadmin.
+Command:psql -h primary_srv_ip -p primary_srv_port -U postgres template1
+select * from pg_create_physical_replication_slot('stm_repl_slot');
+select * from pg_replication_slots;
+8. Install PostgreSQL-14 on Secondary/standby servers.
+URL:https://github.com/sadrulemail/PostgresqlScripts/blob/main/Postgresql_installation_LinuxSRV.txt
+9. create a directory in your expected path where you like to setup new cluster. please make sure, postgres user is the owner of that directory.
+10. Run below pg_basebackup command on standby servers. Modify the value as per your node.
+Command:sudo -u postgres pg_basebackup --pgdata standby_srv_data_dir_path --format=p --write-recovery-conf --checkpoint=fast --label=mffb --progress --host=primary_srv_ip --port=primary_srv_port --username=replication_user_name
+e.g for my case:
+sudo -u postgres pg_basebackup --pgdata /var/lib/postgresql/14/replicadb2 --format=p --write-recovery-conf --checkpoint=fast --label=mffb --progress --host=192.168.37.143 --port=5432 --username=repluser
+11. Modify parameters value in postgresql.conf file on standby server.
+primary_conninfo = 'user=repluser port=5432 host=192.168.37.143'
+primary_slot_name = 'stm_repl_slot'
+12. you can modify port number if there have already cluster that is running on 5432.
+13. start postgresql service on standby server.
+Command:  /usr/lib/postgresql/14/bin/pg_ctl -D standby_srv_data_dir_path start
+e.g. for my case: /usr/lib/postgresql/14/bin/pg_ctl -D /var/lib/postgresql/14/replicadb2 start
+14. That's all, now you can check by creating database, table, inserting/deleting data on primary server.
+15. For some reason, Current primary gone offline. Now need to make standby server primary. Run below cmd form standby server through postgres user.
+Command: pg_ctl promote -D /var/lib/postgresql/14/replicadb2 OR select pg_promote();
+

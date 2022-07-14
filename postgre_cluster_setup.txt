@@ -25,3 +25,21 @@ under IPv4 local connections: -- this means allow connection from all host/user 
 if you get any error fix it, generally port related issue happen sometimes then chage port number
 8. Register it in windows service e.g pg_ctl register -N postgres2 -D E:\Data\PgInstance2
 9. Now you can change service account for postgres2 service, but must have full access to new setup location e.g E:\Data\PgInstance2 even that user is the memeber of admin group.
+
+
+Create cluster in Ubuntu SRV
+-----------------------------
+1. pg_createcluster 14 newcluster
+this will create a new cluster in default path(/var/lib/postgresql/14)
+2. Now need to set password for postgres user
+Command:sudo su - postgres, psql -p5433, ALTER USER postgres WITH PASSWORD '123';
+
+using initdb
+----------------
+1. create new db cluster(use postgres user)
+Command: /usr/lib/postgresql/14/bin/initdb -D /var/lib/postgresql/14/main
+2. Modify postgresql.conf & pg_hba.conf as per your requirement
+3. start database cluster
+Command:/usr/lib/postgresql/14/bin/pg_ctl -D /var/lib/postgresql/14/main start
+4. Reset postgres database user password.
+Command:sudo su - postgres, psql -p5435, ALTER USER postgres WITH PASSWORD '123';
