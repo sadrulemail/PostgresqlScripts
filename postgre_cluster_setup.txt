@@ -5,9 +5,8 @@ Linkedin Profile:https://www.linkedin.com/in/sadrulalom/
 
 Postgresql cluster
 ------------------------
-Postgre cluster means collection of databases which shared same configurations like buffer size, number of connections allowed, connection pool size, and so on.
+Postgre DB cluster means collection of databases which shared same configurations like buffer size, number of connections allowed, connection pool size, and so on.
 
-it's sometimes made confusion when compare with other database services.
 
 How can set up multiple clusters in the same machine with the same version in windows?
 ------------------------------
