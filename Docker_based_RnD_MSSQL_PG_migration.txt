@@ -1,3 +1,8 @@
+**********************************************
+Author:Sadrul
+Linkedin Profile:https://www.linkedin.com/in/sadrulalom/
+**********************************************
+
 step-1:
 	a. install docker desktop for windows
 	b. Pull MS SQL: docker pull mcr.microsoft.com/mssql/server:2019-latest
