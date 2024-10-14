@@ -51,7 +51,7 @@ Step-3: Find the docker container IP address
 	docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' sqlpipe
 
 	sqlserver- 172.17.0.2
-	my_postgres - 172.17.0.3
+	postgres - 172.17.0.3
 	sqlpipe - 172.17.0.4
 
 Step-4: Migrate MS SQL table into PostgreSQL 
